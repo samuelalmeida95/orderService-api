@@ -1,18 +1,41 @@
 package com.samuel.crudos.model;
 
-import com.samuel.crudos.enuns.Prioridade;
-import com.samuel.crudos.enuns.Status;
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.samuel.crudos.enuns.Prioridade;
+import com.samuel.crudos.enuns.Status;
+
+@Entity
 public class OS {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
+  @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime dataAbertura;
+
+  @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime dataFechamento;
+
   private Integer prioridade;
   private Integer status;
   private String observacoes;
+
+  @ManyToOne
+  @JoinColumn(name = "tecnico_id")
   private Tecnico tecnico;
+
+  @ManyToOne
+  @JoinColumn(name = "cliente_id")
   private Cliente cliente;
 
   public OS() {
