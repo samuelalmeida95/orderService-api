@@ -9,18 +9,20 @@ public class OS {
   private Integer id;
   private LocalDateTime dataAbertura;
   private LocalDateTime dataFechamento;
-  private Prioridade prioridade;
-  private Status status;
+  private Integer prioridade;
+  private Integer status;
   private String observacoes;
   private Tecnico tecnico;
   private Cliente cliente;
 
-  public OS() {}
+  public OS() {
+    this.setDataAbertura(LocalDateTime.now());
+    this.setPrioridade(Prioridade.BAIXA);
+    this.setStatus(Status.ABERTO);
+  }
 
   public OS(
     Integer id,
-    LocalDateTime dataAbertura,
-    LocalDateTime dataFechamento,
     Prioridade prioridade,
     Status status,
     String observacoes,
@@ -28,10 +30,9 @@ public class OS {
     Cliente cliente
   ) {
     this.id = id;
-    this.dataAbertura = dataAbertura;
-    this.dataFechamento = dataFechamento;
-    this.prioridade = prioridade;
-    this.status = status;
+    this.setDataAbertura(LocalDateTime.now());
+    this.prioridade = (prioridade == null) ? 0 : prioridade.getCod();
+    this.status = (prioridade == null) ? 0 : status.getCod();
     this.observacoes = observacoes;
     this.tecnico = tecnico;
     this.cliente = cliente;
@@ -62,19 +63,19 @@ public class OS {
   }
 
   public Prioridade getPrioridade() {
-    return prioridade;
+    return Prioridade.toEnum(this.prioridade);
   }
 
   public void setPrioridade(Prioridade prioridade) {
-    this.prioridade = prioridade;
+    this.prioridade = prioridade.getCod();
   }
 
   public Status getStatus() {
-    return status;
+    return Status.toEnum(this.status);
   }
 
   public void setStatus(Status status) {
-    this.status = status;
+    this.status = status.getCod();
   }
 
   public String getObservacoes() {
