@@ -1,7 +1,10 @@
 package com.samuel.crudos.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.samuel.crudos.enuns.Prioridade;
+import com.samuel.crudos.enuns.Status;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,12 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.samuel.crudos.enuns.Prioridade;
-import com.samuel.crudos.enuns.Status;
-
 @Entity
-public class OS {
+public class OS implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
