@@ -32,6 +32,20 @@ public class DBservice {
       "(83) 99617-2418"
     );
 
+    Tecnico t2 = new Tecnico(
+      null,
+      "Matias Melo",
+      "144.785.300-84",
+      "(83) 99617-2418"
+    );
+
+    Tecnico t3 = new Tecnico(
+      null,
+      "Lilian Melo",
+      "144.785.300-84",
+      "(83) 99617-2418"
+    );
+
     Cliente c1 = new Cliente(
       null,
       "Mussun",
@@ -51,7 +65,7 @@ public class DBservice {
     t1.getOrdensServico().add(os1);
     c1.getOrdensServico().add(os1);
 
-    tecnicoRepository.saveAll(Arrays.asList(t1));
+    tecnicoRepository.saveAll(Arrays.asList(t1, t2, t3));
     clienteRepository.saveAll(Arrays.asList(c1));
     osRepository.saveAll(Arrays.asList(os1));
   }
