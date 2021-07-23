@@ -1,5 +1,6 @@
 package com.samuel.crudos.services;
 
+import com.samuel.crudos.DTOS.TecnicoDTO;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.TecnicoRepository;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
@@ -22,5 +23,16 @@ public class TecnicoService {
 
   public List<Tecnico> findAll() {
     return tecnicoRepository.findAll();
+  }
+
+  public Tecnico create(TecnicoDTO tecnico) {
+    return tecnicoRepository.save(
+      new Tecnico(
+        null,
+        tecnico.getNome(),
+        tecnico.getCpf(),
+        tecnico.getTelefone()
+      )
+    );
   }
 }
