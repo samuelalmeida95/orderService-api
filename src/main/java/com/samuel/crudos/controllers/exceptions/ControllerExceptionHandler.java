@@ -18,7 +18,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegratyViolationException.class)
-    public ResponseEntity<StandardError> DataIntegratyViolationException(DataIntegratyViolationException e) {
+    public ResponseEntity<StandardError> dataIntegratyViolationException(DataIntegratyViolationException e) {
         StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
                 e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
