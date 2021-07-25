@@ -6,6 +6,9 @@ import com.samuel.crudos.services.TecnicoService;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +43,7 @@ public class TecnicoController {
   }
 
   @PostMapping
-  public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecnico) {
+  public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnico) {
     Tecnico novoTecnico = service.create(tecnico);
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()

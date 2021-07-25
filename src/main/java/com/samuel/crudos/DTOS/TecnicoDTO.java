@@ -1,12 +1,20 @@
 package com.samuel.crudos.DTOS;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.samuel.crudos.model.Tecnico;
 
 public class TecnicoDTO {
 
   private Integer id;
+
+  @NotEmpty(message = "O campo nome é requerido")
   private String nome;
+
+  @NotEmpty(message = "O campo cpf é requerido")
   private String cpf;
+  
+  @NotEmpty(message = "O campo telefone é requerido")
   private String telefone;
 
   public TecnicoDTO() {
