@@ -43,9 +43,14 @@ public class TecnicoService {
     return null;
   }
 
-  public Tecnico update(Integer idTecnico, TecnicoDTO tecnicoAtualizado) {
+  public Tecnico update(Integer idTecnico, TecnicoDTO tecnicoDTO) {
     Tecnico tecnicoBuscado = findById(idTecnico);
-    tecnicoBuscado = updateData(tecnicoBuscado, tecnicoAtualizado);
+
+    if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != idTecnico)
+      throw new DataIntegratyViolationException("CPF já cadstrado na base de dados");
+    
+
+    tecnicoBuscado = updateData(tecnicoBuscado, tecnicoDTO);
     return tecnicoRepository.save(tecnicoBuscado);
   }
 
