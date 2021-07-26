@@ -55,10 +55,11 @@ public class TecnicoController {
   }
 
   @PutMapping(value = "atualizar/{idTecnico}")
-  public ResponseEntity<Tecnico> update(
+  public ResponseEntity<TecnicoDTO> update(
     @PathVariable Integer idTecnico,
-    @RequestBody Tecnico tecnico) {
-    Tecnico tecnicoParaAtualizar = service.update(idTecnico, tecnico);
+    @Valid 
+    @RequestBody TecnicoDTO tecnicoDTO) {
+    TecnicoDTO tecnicoParaAtualizar = new TecnicoDTO(service.update(idTecnico, tecnicoDTO));
     return ResponseEntity.ok().body(tecnicoParaAtualizar);
   }
 

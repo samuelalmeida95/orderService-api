@@ -43,14 +43,15 @@ public class TecnicoService {
     return null;
   }
 
-  public Tecnico update(Integer idTecnico, Tecnico tecnicoAtualizado) {
+  public Tecnico update(Integer idTecnico, TecnicoDTO tecnicoAtualizado) {
     Tecnico tecnicoBuscado = findById(idTecnico);
     tecnicoBuscado = updateData(tecnicoBuscado, tecnicoAtualizado);
     return tecnicoRepository.save(tecnicoBuscado);
   }
 
-  public Tecnico updateData(Tecnico tecnicoParaAtualizar, Tecnico tecnico) {
+  public Tecnico updateData(Tecnico tecnicoParaAtualizar, TecnicoDTO tecnico) {
     tecnicoParaAtualizar.setNome(tecnico.getNome());
+    tecnicoParaAtualizar.setCpf(tecnico.getCpf());
     tecnicoParaAtualizar.setTelefone(tecnico.getTelefone());
     return tecnicoParaAtualizar;
   }
