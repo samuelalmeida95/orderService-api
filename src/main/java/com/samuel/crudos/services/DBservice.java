@@ -25,11 +25,11 @@ public class DBservice {
   private OSRepository osRepository;
 
   public void instanciaDB() {
-    Tecnico t1 = new Tecnico(null, "Samuel Melo", "144.785.300-84", "(83) 99617-2418");
+    Tecnico t1 = new Tecnico(null, "Samuel Melo", "002.671.010-23", "(83) 99617-2418");
 
-    Tecnico t2 = new Tecnico(null, "Matias Melo", "144.785.300-84", "(83) 99617-2418");
+    Tecnico t2 = new Tecnico(null, "Matias Melo", "772.578.850-60", "(83) 99617-2418");
 
-    Tecnico t3 = new Tecnico(null, "Lilian Melo", "144.785.300-84", "(83) 99617-2418");
+    Tecnico t3 = new Tecnico(null, "Lilian Melo", "295.210.920-68", "(83) 99617-2418");
 
     Cliente c1 = new Cliente(null, "Mussun", "598.508.200-80", "(88) 98888-7777");
 

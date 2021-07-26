@@ -3,6 +3,8 @@ package com.samuel.crudos.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.samuel.crudos.DTOS.TecnicoDTO;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.TecnicoRepository;
@@ -36,29 +38,29 @@ public class TecnicoService {
     return tecnicoRepository.save(new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
   }
 
-  private Tecnico findByCPF(TecnicoDTO objDTO) {
-    Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
-    if (obj != null)
-      return obj;
-    return null;
-  }
-
-  public Tecnico update(Integer idTecnico, TecnicoDTO tecnicoDTO) {
+  public Tecnico update(Integer idTecnico, @Valid TecnicoDTO tecnicoDTO) {
     Tecnico tecnicoBuscado = findById(idTecnico);
-
-    if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != idTecnico)
-      throw new DataIntegratyViolationException("CPF já cadstrado na base de dados");
     
-
+    if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != idTecnico){
+      throw new DataIntegratyViolationException("CPF já cadstrado na base de dados");
+    }
+    
     tecnicoBuscado = updateData(tecnicoBuscado, tecnicoDTO);
     return tecnicoRepository.save(tecnicoBuscado);
   }
-
+  
   public Tecnico updateData(Tecnico tecnicoParaAtualizar, TecnicoDTO tecnico) {
     tecnicoParaAtualizar.setNome(tecnico.getNome());
     tecnicoParaAtualizar.setCpf(tecnico.getCpf());
     tecnicoParaAtualizar.setTelefone(tecnico.getTelefone());
     return tecnicoParaAtualizar;
+  }
+  
+  private Tecnico findByCPF(TecnicoDTO objDTO) {
+    Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
+    if (obj != null)
+      return obj;
+    return null;
   }
 
   public void delete(Integer id) {
