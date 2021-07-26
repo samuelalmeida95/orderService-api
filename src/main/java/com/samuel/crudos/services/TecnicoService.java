@@ -1,16 +1,13 @@
 package com.samuel.crudos.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import com.samuel.crudos.DTOS.TecnicoDTO;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.TecnicoRepository;
 import com.samuel.crudos.services.exceptions.DataIntegratyViolationException;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
-
+import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -32,34 +29,41 @@ public class TecnicoService {
   }
 
   public Tecnico create(TecnicoDTO objDTO) {
-    if (findByCPF(objDTO) != null)
-      throw new DataIntegratyViolationException("CPF já cadastrado na base de dados CPF: " + objDTO.getCpf());
+    if (findByCPF(objDTO) != null) throw new DataIntegratyViolationException(
+      "CPF já cadastrado na base de dados CPF: " + objDTO.getCpf()
+    );
 
-    return tecnicoRepository.save(new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
+    return tecnicoRepository.save(
+      new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone())
+    );
   }
 
   public Tecnico update(Integer idTecnico, @Valid TecnicoDTO tecnicoDTO) {
     Tecnico tecnicoBuscado = findById(idTecnico);
-    
-    if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != idTecnico){
-      throw new DataIntegratyViolationException("CPF já cadstrado na base de dados");
+
+    if (
+      findByCPF(tecnicoDTO) != null &&
+      findByCPF(tecnicoDTO).getId() != idTecnico
+    ) {
+      throw new DataIntegratyViolationException(
+        "CPF já cadstrado na base de dados"
+      );
     }
-    
+
     tecnicoBuscado = updateData(tecnicoBuscado, tecnicoDTO);
     return tecnicoRepository.save(tecnicoBuscado);
   }
-  
+
   public Tecnico updateData(Tecnico tecnicoParaAtualizar, TecnicoDTO tecnico) {
     tecnicoParaAtualizar.setNome(tecnico.getNome());
     tecnicoParaAtualizar.setCpf(tecnico.getCpf());
     tecnicoParaAtualizar.setTelefone(tecnico.getTelefone());
     return tecnicoParaAtualizar;
   }
-  
+
   private Tecnico findByCPF(TecnicoDTO objDTO) {
     Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
-    if (obj != null)
-      return obj;
+    if (obj != null) return obj;
     return null;
   }
 
@@ -67,9 +71,10 @@ public class TecnicoService {
     findById(id);
     try {
       tecnicoRepository.deleteById(id);
-
     } catch (DataIntegrityViolationException e) {
-      throw new DataIntegratyViolationException("Tecnico não pode ser deletado, possui OS associadas");
+      throw new DataIntegratyViolationException(
+        "Tecnico não pode ser deletado, possui OS associadas"
+      );
     }
   }
 }
