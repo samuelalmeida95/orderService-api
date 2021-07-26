@@ -1,13 +1,16 @@
 package com.samuel.crudos.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.samuel.crudos.DTOS.TecnicoDTO;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.TecnicoRepository;
 import com.samuel.crudos.services.exceptions.DataIntegratyViolationException;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
-import java.util.List;
-import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,10 +43,10 @@ public class TecnicoService {
     return null;
   }
 
-  public Tecnico update(Integer idTecnico, Tecnico tecnicoParaAtualizar) {
+  public Tecnico update(Integer idTecnico, Tecnico tecnicoAtualizado) {
     Tecnico tecnicoBuscado = findById(idTecnico);
-    Tecnico tecnicoAtualizado = updateData(tecnicoBuscado, tecnicoParaAtualizar);
-    return tecnicoRepository.save(tecnicoAtualizado);
+    tecnicoBuscado = updateData(tecnicoBuscado, tecnicoAtualizado);
+    return tecnicoRepository.save(tecnicoBuscado);
   }
 
   public Tecnico updateData(Tecnico tecnicoParaAtualizar, Tecnico tecnico) {
@@ -52,4 +55,13 @@ public class TecnicoService {
     return tecnicoParaAtualizar;
   }
 
+  public void delete(Integer id) {
+    findById(id);
+    try {
+      tecnicoRepository.deleteById(id);
+
+    } catch (DataIntegrityViolationException e) {
+      throw new DataIntegratyViolationException("Tecnico não pode ser deletado, possui OS associadas");
+    }
+  }
 }
