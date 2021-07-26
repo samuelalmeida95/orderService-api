@@ -35,8 +35,21 @@ public class TecnicoService {
 
   private Tecnico findByCPF(TecnicoDTO objDTO) {
     Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
-    if (obj != null) 
+    if (obj != null)
       return obj;
     return null;
   }
+
+  public Tecnico update(Integer idTecnico, Tecnico tecnicoParaAtualizar) {
+    Tecnico tecnicoBuscado = findById(idTecnico);
+    Tecnico tecnicoAtualizado = updateData(tecnicoBuscado, tecnicoParaAtualizar);
+    return tecnicoRepository.save(tecnicoAtualizado);
+  }
+
+  public Tecnico updateData(Tecnico tecnicoParaAtualizar, Tecnico tecnico) {
+    tecnicoParaAtualizar.setNome(tecnico.getNome());
+    tecnicoParaAtualizar.setTelefone(tecnico.getTelefone());
+    return tecnicoParaAtualizar;
+  }
+
 }

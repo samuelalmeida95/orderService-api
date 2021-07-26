@@ -6,14 +6,13 @@ import com.samuel.crudos.services.TecnicoService;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +42,8 @@ public class TecnicoController {
   }
 
   @PostMapping
-  public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnico) {
+  public ResponseEntity<TecnicoDTO> create(
+    @Valid @RequestBody TecnicoDTO tecnico) {
     Tecnico novoTecnico = service.create(tecnico);
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
@@ -51,5 +51,13 @@ public class TecnicoController {
       .buildAndExpand(novoTecnico.getId())
       .toUri();
     return ResponseEntity.created(uri).build();
+  }
+
+  @PutMapping(value = "atualizar/{idTecnico}")
+  public ResponseEntity<Tecnico> update(
+    @PathVariable Integer idTecnico,
+    @RequestBody Tecnico tecnico) {
+    Tecnico tecnicoParaAtualizar = service.update(idTecnico, tecnico);
+    return ResponseEntity.ok().body(tecnicoParaAtualizar);
   }
 }
