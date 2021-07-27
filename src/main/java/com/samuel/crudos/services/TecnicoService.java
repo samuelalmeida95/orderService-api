@@ -1,7 +1,9 @@
 package com.samuel.crudos.services;
 
 import com.samuel.crudos.DTOS.TecnicoDTO;
+import com.samuel.crudos.model.Pessoa;
 import com.samuel.crudos.model.Tecnico;
+import com.samuel.crudos.repositories.PessoaRepository;
 import com.samuel.crudos.repositories.TecnicoRepository;
 import com.samuel.crudos.services.exceptions.DataIntegratyViolationException;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
@@ -17,6 +19,9 @@ public class TecnicoService {
 
   @Autowired
   public TecnicoRepository tecnicoRepository;
+
+  @Autowired
+  public PessoaRepository pessoaRepository;
 
   public Tecnico findById(Integer idTecnico) {
     Optional<Tecnico> tecnicoBuscado = tecnicoRepository.findById(idTecnico);
@@ -61,16 +66,16 @@ public class TecnicoService {
     return tecnicoParaAtualizar;
   }
 
-  private Tecnico findByCPF(TecnicoDTO objDTO) {
-    Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
+  private Pessoa findByCPF(TecnicoDTO objDTO) {
+    Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
     if (obj != null) return obj;
     return null;
   }
 
-  public void delete(Integer id) {
-    findById(id);
+  public void delete(Integer idTecnico) {
+    findById(idTecnico);
     try {
-      tecnicoRepository.deleteById(id);
+      tecnicoRepository.deleteById(idTecnico);
     } catch (DataIntegrityViolationException e) {
       throw new DataIntegratyViolationException(
         "Tecnico não pode ser deletado, possui OS associadas"
