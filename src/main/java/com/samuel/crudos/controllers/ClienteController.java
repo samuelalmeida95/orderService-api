@@ -49,7 +49,8 @@ public class ClienteController {
 
   @PostMapping
   public ResponseEntity<ClienteDTO> create(
-    @Valid @RequestBody ClienteDTO Cliente) {
+    @Valid 
+    @RequestBody ClienteDTO Cliente) {
     Cliente novoCliente = service.create(Cliente);
 
     URI uri = ServletUriComponentsBuilder
@@ -66,7 +67,7 @@ public class ClienteController {
     @PathVariable Integer idCliente,
     @Valid
     @RequestBody ClienteDTO ClienteDTO) {
-        
+
     ClienteDTO ClienteAtualizado = new ClienteDTO(
       service.update(idCliente, ClienteDTO));
 
