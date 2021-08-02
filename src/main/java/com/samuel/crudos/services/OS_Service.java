@@ -28,42 +28,42 @@ public class OS_Service {
   @Autowired
   private ClienteService clienteService;
 
-  public OS findById(Integer idOrdemServico) {
-    Optional<OS> obj = osRepository.findById(idOrdemServico);
+  public OS findById(Integer idOS) {
+    Optional<OS> obj = osRepository.findById(idOS);
 
     return obj.orElseThrow(
-        () -> new ObjectNotFoundException("Objeto não encontrado! ID: " + idOrdemServico + "Tipo: " + OS.class.getName()));
+        () -> new ObjectNotFoundException("Objeto não encontrado! ID: " + idOS + "Tipo: " + OS.class.getName()));
   }
 
   public List<OS> findAll() {
     return osRepository.findAll();
   }
 
-  public OS create(OSDTO novaOrdemServico) {
-    return fromDTO(novaOrdemServico);
+  public OS create(OSDTO OSParaSerCriada) {
+    return fromDTO(OSParaSerCriada);
   }
 
-  public OS update(OSDTO alterarOrdemServico){
-    findById(alterarOrdemServico.getId());
-    return fromDTO(alterarOrdemServico);
+  public OS update(OSDTO OSParaSerAlterada){
+    findById(OSParaSerAlterada.getId());
+    return fromDTO(OSParaSerAlterada);
   }
 
-  private OS fromDTO(OSDTO ordemServico) {
-    OS novaOrdemServico = new OS();
-    novaOrdemServico.setId(ordemServico.getId());
-    novaOrdemServico.setPrioridade(Prioridade.toEnum(ordemServico.getPrioridade()));
-    novaOrdemServico.setStatus(Status.toEnum(ordemServico.getStatus()));
-    novaOrdemServico.setObservacoes(ordemServico.getObservacoes());
+  private OS fromDTO(OSDTO os) {
+    OS novaOS = new OS();
+    novaOS.setId(os.getId());
+    novaOS.setPrioridade(Prioridade.toEnum(os.getPrioridade()));
+    novaOS.setStatus(Status.toEnum(os.getStatus()));
+    novaOS.setObservacoes(os.getObservacoes());
 
-    Tecnico tec = tecnicoService.findById(ordemServico.getTecnico());
-    Cliente cli = clienteService.findById(ordemServico.getCliente());
+    Tecnico tec = tecnicoService.findById(os.getTecnico());
+    Cliente cli = clienteService.findById(os.getCliente());
 
-    novaOrdemServico.setTecnico(tec);
-    novaOrdemServico.setCliente(cli);
+    novaOS.setTecnico(tec);
+    novaOS.setCliente(cli);
 
-    if(novaOrdemServico.getStatus().getCod().equals(2))
-      novaOrdemServico.setDataFechamento(LocalDateTime.now());
+    if(novaOS.getStatus().getCod().equals(2))
+      novaOS.setDataFechamento(LocalDateTime.now());
 
-    return osRepository.save(novaOrdemServico);
+    return osRepository.save(novaOS);
   }
 }
