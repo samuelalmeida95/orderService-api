@@ -2,14 +2,18 @@ package com.samuel.crudos.controllers;
 
 import com.samuel.crudos.DTOS.OSDTO;
 import com.samuel.crudos.services.OS_Service;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/os")
@@ -25,7 +29,7 @@ public class OS_Controller {
 
   @GetMapping
   public ResponseEntity<List<OSDTO>> findAll() {
-      
+    
     List<OSDTO> list = service
       .findAll()
       .stream()
@@ -33,5 +37,18 @@ public class OS_Controller {
       .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(list);
+  }
+
+  @PostMapping
+  public ResponseEntity<OSDTO> create(@RequestBody OSDTO obj) {
+    obj = new OSDTO(service.create(obj));
+
+    URI uri = ServletUriComponentsBuilder
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(obj.getId())
+      .toUri();
+
+    return ResponseEntity.created(uri).build();
   }
 }
