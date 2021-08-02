@@ -1,5 +1,9 @@
 package com.samuel.crudos.services;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import com.samuel.crudos.DTOS.OSDTO;
 import com.samuel.crudos.enuns.Prioridade;
 import com.samuel.crudos.enuns.Status;
@@ -8,8 +12,7 @@ import com.samuel.crudos.model.OS;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.OSRepository;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
-import java.util.List;
-import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,34 +28,42 @@ public class OS_Service {
   @Autowired
   private ClienteService clienteService;
 
-  public OS findById(Integer idOS) {
-    Optional<OS> obj = osRepository.findById(idOS);
+  public OS findById(Integer idOrdemServico) {
+    Optional<OS> obj = osRepository.findById(idOrdemServico);
 
     return obj.orElseThrow(
-        () -> new ObjectNotFoundException("Objeto não encontrado! ID: " + idOS + "Tipo: " + OS.class.getName()));
+        () -> new ObjectNotFoundException("Objeto não encontrado! ID: " + idOrdemServico + "Tipo: " + OS.class.getName()));
   }
 
   public List<OS> findAll() {
     return osRepository.findAll();
   }
 
-  public OS create(OSDTO obj) {
-    return fromDTO(obj);
+  public OS create(OSDTO novaOrdemServico) {
+    return fromDTO(novaOrdemServico);
   }
 
-  private OS fromDTO(OSDTO obj) {
-    OS ordem_servico = new OS();
-    ordem_servico.setId(obj.getId());
-    ordem_servico.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
-    ordem_servico.setStatus(Status.toEnum(obj.getStatus()));
-    ordem_servico.setObservacoes(obj.getObservacoes());
+  public OS update(OSDTO alterarOrdemServico){
+    findById(alterarOrdemServico.getId());
+    return fromDTO(alterarOrdemServico);
+  }
 
-    Tecnico tec = tecnicoService.findById(obj.getTecnico());
-    Cliente cli = clienteService.findById(obj.getCliente());
+  private OS fromDTO(OSDTO ordemServico) {
+    OS novaOrdemServico = new OS();
+    novaOrdemServico.setId(ordemServico.getId());
+    novaOrdemServico.setPrioridade(Prioridade.toEnum(ordemServico.getPrioridade()));
+    novaOrdemServico.setStatus(Status.toEnum(ordemServico.getStatus()));
+    novaOrdemServico.setObservacoes(ordemServico.getObservacoes());
 
-    ordem_servico.setTecnico(tec);
-    ordem_servico.setCliente(cli);
+    Tecnico tec = tecnicoService.findById(ordemServico.getTecnico());
+    Cliente cli = clienteService.findById(ordemServico.getCliente());
 
-    return osRepository.save(ordem_servico);
+    novaOrdemServico.setTecnico(tec);
+    novaOrdemServico.setCliente(cli);
+
+    if(novaOrdemServico.getStatus().getCod().equals(2))
+      novaOrdemServico.setDataFechamento(LocalDateTime.now());
+
+    return osRepository.save(novaOrdemServico);
   }
 }
