@@ -33,41 +33,51 @@ public class TecnicoService {
     return tecnicoRepository.findAll();
   }
 
-  public Tecnico create(TecnicoDTO objDTO) {
-    if (findByCPF(objDTO) != null) throw new DataIntegratyViolationException(
-      "CPF já cadastrado na base de dados CPF: " + objDTO.getCpf()
+  public Tecnico create(TecnicoDTO tecnicoParaCriar) {
+    if (
+      findByCPF(tecnicoParaCriar) != null
+    ) throw new DataIntegratyViolationException(
+      "CPF já cadastrado na base de dados CPF: " + tecnicoParaCriar.getCpf()
     );
 
     return tecnicoRepository.save(
-      new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone())
+      new Tecnico(
+        null,
+        tecnicoParaCriar.getNome(),
+        tecnicoParaCriar.getCpf(),
+        tecnicoParaCriar.getTelefone()
+      )
     );
   }
 
-  public Tecnico update(Integer idTecnico, @Valid TecnicoDTO tecnicoDTO) {
+  public Tecnico update(Integer idTecnico, @Valid TecnicoDTO tecnicoAlterado) {
     Tecnico tecnicoBuscado = findById(idTecnico);
 
     if (
-      findByCPF(tecnicoDTO) != null &&
-      findByCPF(tecnicoDTO).getId() != idTecnico
+      findByCPF(tecnicoAlterado) != null &&
+      findByCPF(tecnicoAlterado).getId() != idTecnico
     ) {
       throw new DataIntegratyViolationException(
         "CPF já cadstrado na base de dados"
       );
     }
 
-    tecnicoBuscado = updateData(tecnicoBuscado, tecnicoDTO);
+    tecnicoBuscado = updateData(tecnicoBuscado, tecnicoAlterado);
     return tecnicoRepository.save(tecnicoBuscado);
   }
 
-  public Tecnico updateData(Tecnico tecnicoParaAtualizar, TecnicoDTO tecnico) {
-    tecnicoParaAtualizar.setNome(tecnico.getNome());
-    tecnicoParaAtualizar.setCpf(tecnico.getCpf());
-    tecnicoParaAtualizar.setTelefone(tecnico.getTelefone());
+  public Tecnico updateData(
+    Tecnico tecnicoParaAtualizar,
+    TecnicoDTO tecnicoAlterado
+  ) {
+    tecnicoParaAtualizar.setNome(tecnicoAlterado.getNome());
+    tecnicoParaAtualizar.setCpf(tecnicoAlterado.getCpf());
+    tecnicoParaAtualizar.setTelefone(tecnicoAlterado.getTelefone());
     return tecnicoParaAtualizar;
   }
 
-  private Pessoa findByCPF(TecnicoDTO objDTO) {
-    Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
+  private Pessoa findByCPF(TecnicoDTO tecnico) {
+    Pessoa obj = pessoaRepository.findByCPF(tecnico.getCpf());
     if (obj != null) return obj;
     return null;
   }

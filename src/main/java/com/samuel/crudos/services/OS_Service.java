@@ -1,9 +1,5 @@
 package com.samuel.crudos.services;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import com.samuel.crudos.DTOS.OSDTO;
 import com.samuel.crudos.enuns.Prioridade;
 import com.samuel.crudos.enuns.Status;
@@ -12,7 +8,9 @@ import com.samuel.crudos.model.OS;
 import com.samuel.crudos.model.Tecnico;
 import com.samuel.crudos.repositories.OSRepository;
 import com.samuel.crudos.services.exceptions.ObjectNotFoundException;
-
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +37,13 @@ public class OS_Service {
     return osRepository.findAll();
   }
 
-  public OS create(OSDTO OSParaSerCriada) {
-    return fromDTO(OSParaSerCriada);
+  public OS create(OSDTO OSParaCriar) {
+    return fromDTO(OSParaCriar);
   }
 
-  public OS update(OSDTO OSParaSerAlterada){
-    findById(OSParaSerAlterada.getId());
-    return fromDTO(OSParaSerAlterada);
+  public OS update(OSDTO OSParaAlterar) {
+    findById(OSParaAlterar.getId());
+    return fromDTO(OSParaAlterar);
   }
 
   private OS fromDTO(OSDTO os) {
@@ -61,8 +59,9 @@ public class OS_Service {
     novaOS.setTecnico(tec);
     novaOS.setCliente(cli);
 
-    if(novaOS.getStatus().getCod().equals(2))
-      novaOS.setDataFechamento(LocalDateTime.now());
+    if (novaOS.getStatus().getCod().equals(2)) novaOS.setDataFechamento(
+      LocalDateTime.now()
+    );
 
     return osRepository.save(novaOS);
   }
