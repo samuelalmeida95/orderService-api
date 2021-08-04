@@ -58,4 +58,6 @@ public class OS_Controller {
     objDTO = new OSDTO(service.update(objDTO));
     return ResponseEntity.ok().body(objDTO);
   }
+
+  //OS não deve ser deletada
 }
