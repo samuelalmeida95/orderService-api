@@ -110,6 +110,21 @@ Olá! Este é um desafio SpringBoot + JPA + H2 db!
   "cliente": 4
 ```
 
+### 📑 <i> Prioridades e Status </i>
+```java
+public enum Prioridade {
+  BAIXA(0, "BAIXA"),
+  MEDIA(1, "MEDIA"),
+  ALTA(2, "ALTA");
+ }
+  
+public enum Status {
+  ABERTO(0, "ABERTO"),
+  ANDAMENTO(1, "ANDAMENTO"),
+  ENCERRADO(2, "ENCERRADO");
+  }
+```
+
 <br>
 
 <p align="center">Feito com 💚 by Samuel Almeida</p>
