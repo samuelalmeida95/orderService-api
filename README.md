@@ -11,7 +11,7 @@
 <br> 
 
 ```php 
-Olá! Este é um desafio SpringBoot + JPA para gerenciar ordens de serviços, incluindo técnicos e clientes!
+Olá! Este é um desafio SpringBoot + JPA + H2 db!
 ```
 
 <i>
