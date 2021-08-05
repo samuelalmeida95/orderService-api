@@ -126,6 +126,11 @@ public enum Status {
 
 <br>
 
+### 🎯 <i>Diagrama UML</i>
+<img align="center" src="https://github.com/samuelalmeida95/serviceOrder-api/blob/main/diagrama.png"></img>
+
+<br>
+
 <p align="center">Feito com 💚 by Samuel Almeida</p>
 
 <br>
