@@ -135,7 +135,7 @@ public enum Status {
 
 <br>
 <div align="right">
-    <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#12EAEA>.svg" align="left"/>
+    <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#2A69B2>.svg" align="left"/>
     <img src="https://img.shields.io/badge/JAVA-SPRING BOOT-<#12EAEA>.svg" align="rigth"/>
 </div>
    
