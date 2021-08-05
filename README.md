@@ -11,7 +11,7 @@
 <br> 
 
 ```php 
-Olá! Este é um desafio SpringBoot + JPA + H2 db!
+Olá! Este é um desafio SpringBoot + JPA + H2 DATA BASE!
 ```
 
 <i>
