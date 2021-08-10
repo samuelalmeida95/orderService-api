@@ -30,7 +30,6 @@ Olá! Este é um desafio SpringBoot + JPA + H2 DATA BASE!
 ### ⌛ <i>Status do Desafio: **`Concluido`** ✔</i>
  
 ##
-
   
  ### 🚀 <i>Funcionalidades disponiveis</i>
  
