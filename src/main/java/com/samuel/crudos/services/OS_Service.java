@@ -65,4 +65,8 @@ public class OS_Service {
 
     return osRepository.save(novaOS);
   }
+
+  public List<OS> findByStatus(Integer idOS) {
+    return osRepository.findByStatus(idOS);
+  }
 }

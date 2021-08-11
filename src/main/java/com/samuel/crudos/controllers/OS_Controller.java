@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,6 +41,18 @@ public class OS_Controller {
     return ResponseEntity.ok().body(list);
   }
 
+  @GetMapping(value = "/status")
+  public ResponseEntity<List<OSDTO>> findByStatus(@RequestParam Integer idStatus){
+
+    List<OSDTO> list = service
+    .findByStatus(idStatus)
+    .stream()
+    .map(ordemServico -> new OSDTO(ordemServico))
+    .collect(Collectors.toList());
+
+    return ResponseEntity.ok().body(list);
+  }
+
   @PostMapping
   public ResponseEntity<OSDTO> create(@RequestBody OSDTO obj) {
     obj = new OSDTO(service.create(obj));
@@ -58,6 +71,4 @@ public class OS_Controller {
     objDTO = new OSDTO(service.update(objDTO));
     return ResponseEntity.ok().body(objDTO);
   }
-
-  //OS não deve ser deletada
 }
