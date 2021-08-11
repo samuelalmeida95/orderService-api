@@ -30,7 +30,6 @@ Olá! Este é um desafio SpringBoot + JPA + H2 DATA BASE!
 ### ⌛ <i>Status do Desafio: **`Concluido`** ✔</i>
  
 ##
-
   
  ### 🚀 <i>Funcionalidades disponiveis</i>
  
@@ -138,4 +137,6 @@ public enum Status {
     <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#2A69B2>.svg" align="left"/>
     <img src="https://img.shields.io/badge/JAVA-SPRING BOOT-<#12EAEA>.svg" align="rigth"/>
 </div>
+   
+   
    
