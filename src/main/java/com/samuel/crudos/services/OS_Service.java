@@ -66,7 +66,11 @@ public class OS_Service {
     return osRepository.save(novaOS);
   }
 
-  public List<OS> findByStatus(Integer idOS) {
-    return osRepository.findByStatus(idOS);
+  public List<OS> findByStatus(Integer idStatus) {
+
+    if(idStatus > 2)
+      throw new ObjectNotFoundException("O Status " + idStatus + " é inexistente");
+
+    return osRepository.findByStatus(idStatus);
   }
 }
