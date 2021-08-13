@@ -11,6 +11,7 @@ import com.samuel.crudos.model.Cliente;
 import com.samuel.crudos.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,7 +76,8 @@ public class ClienteController {
   }
 
   @DeleteMapping(value = "/{idCliente}")
-  public void delete(@PathVariable Integer idCliente) {
+  public ResponseEntity<String> delete(@PathVariable Integer idCliente) {
     service.delete(idCliente);
+    return new ResponseEntity<>("Cliente deletado.", HttpStatus.ACCEPTED);
   }
 }

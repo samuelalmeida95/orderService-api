@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,11 +47,13 @@ public class TecnicoController {
   public ResponseEntity<TecnicoDTO> create(
     @Valid @RequestBody TecnicoDTO tecnico) {
     Tecnico novoTecnico = service.create(tecnico);
+
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")  
       .buildAndExpand(novoTecnico.getId())
       .toUri();
+      
     return ResponseEntity.created(uri).build();
   }
 
@@ -64,7 +67,8 @@ public class TecnicoController {
   }
 
   @DeleteMapping(value = "/{idTecnico}")
-  public void delete(@PathVariable Integer idTecnico){
+  public ResponseEntity<String> delete(@PathVariable Integer idTecnico){
     service.delete(idTecnico);
+    return new ResponseEntity<>("Técnico deletado.",HttpStatus.ACCEPTED);
   }
 }
