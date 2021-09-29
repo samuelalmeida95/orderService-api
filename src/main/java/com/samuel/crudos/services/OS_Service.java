@@ -69,7 +69,7 @@ public class OS_Service {
   public List<OS> findByStatus(Integer idStatus) {
 
     if(idStatus > 2)
-      throw new ObjectNotFoundException("O Status " + idStatus + " é inexistente");
+      throw new ObjectNotFoundException("O Status: " + idStatus + " é inexistente");
 
     return osRepository.findByStatus(idStatus);
   }
