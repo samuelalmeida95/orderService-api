@@ -33,11 +33,15 @@ public class DBservice {
 
     Cliente c1 = new Cliente(null, "Mussun", "598.508.200-80", "(88) 98888-7777");
 
+    Cliente c2 = new Cliente(null, "Peter", "430.352.510-37", "(88) 98888-7777");
+
+    Cliente c3 = new Cliente(null, "Mussun", "553.830.470-18", "(88) 98888-7777");
+
     OS os1 = new OS(null, Prioridade.ALTA, Status.ANDAMENTO, "Acesso ao JIRA", t1, c1);
 
-    OS os2 = new OS(null, Prioridade.BAIXA, Status.ABERTO, "Tarefa com impedimento", t3, c1);
+    OS os2 = new OS(null, Prioridade.BAIXA, Status.ABERTO, "Tarefa com impedimento", t3, c2);
 
-    OS os3 = new OS(null, Prioridade.MEDIA, Status.ENCERRADO, "Migrar IDE para VsCode", t2, c1);
+    OS os3 = new OS(null, Prioridade.MEDIA, Status.ENCERRADO, "Migrar IDE para VsCode", t2, c3);
 
     t1.getOrdensServico().add(os1);
     t2.getOrdensServico().add(os2);
@@ -45,7 +49,7 @@ public class DBservice {
     c1.getOrdensServico().add(os1);
 
     tecnicoRepository.saveAll(Arrays.asList(t1, t2, t3));
-    clienteRepository.saveAll(Arrays.asList(c1));
+    clienteRepository.saveAll(Arrays.asList(c1,c2,c3));
     osRepository.saveAll(Arrays.asList(os1, os2, os3));
   }
 }
