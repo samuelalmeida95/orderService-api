@@ -3,6 +3,7 @@ package com.samuel.crudos.DTOS;
 import javax.validation.constraints.NotEmpty;
 
 import com.samuel.crudos.model.Tecnico;
+import org.hibernate.validator.constraints.br.CPF;
 
 public class TecnicoDTO {
 
@@ -11,6 +12,7 @@ public class TecnicoDTO {
   @NotEmpty(message = "O campo nome é requerido")
   private String nome;
 
+  @CPF
   @NotEmpty(message = "O campo cpf é requerido")
   private String cpf;
   
