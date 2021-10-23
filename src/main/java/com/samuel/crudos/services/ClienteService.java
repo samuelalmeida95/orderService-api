@@ -51,7 +51,7 @@ public class ClienteService {
       findByCPF(clienteDTO).getId() != idCliente
     ) {
       throw new DataIntegratyViolationException(
-        "CPF já cadstrado na base de dados"
+        "CPF já cadastrado na base de dados"
       );
     }
 

@@ -58,7 +58,7 @@ public class TecnicoService {
       findByCPF(tecnicoAlterado).getId() != idTecnico
     ) {
       throw new DataIntegratyViolationException(
-        "CPF já cadstrado na base de dados"
+        "CPF já cadastrado na base de dados"
       );
     }
 

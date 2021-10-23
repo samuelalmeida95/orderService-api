@@ -62,13 +62,20 @@ public class TecnicoController {
     return ResponseEntity.created(uri).build();
   }
 
-  @PutMapping(value = "atualizar/{idTecnico}")
+  @PutMapping(value = "/{idTecnico}")
   public ResponseEntity<TecnicoDTO> update(
     @PathVariable Integer idTecnico,
     @Valid 
     @RequestBody TecnicoDTO tecnicoDTO) {
     TecnicoDTO tecnicoAtualizado = new TecnicoDTO(service.update(idTecnico, tecnicoDTO));
-    return ResponseEntity.ok().body(tecnicoAtualizado);
+
+    URI uri = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(tecnicoAtualizado.getId())
+            .toUri();
+
+    return ResponseEntity.created(uri).build();
   }
 
   @DeleteMapping(value = "/{idTecnico}")
