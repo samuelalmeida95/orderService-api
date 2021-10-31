@@ -43,7 +43,7 @@ public class TecnicoController {
     List<TecnicoDTO> listDTO = service
       .findAll()
       .stream()
-      .map(tecnico -> new TecnicoDTO(tecnico))
+      .map(TecnicoDTO::new)
       .collect(Collectors.toList());
     return ResponseEntity.ok().body(listDTO);
   }
