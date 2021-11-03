@@ -79,8 +79,7 @@ public class TecnicoController {
   }
 
   @DeleteMapping(value = "/{idTecnico}")
-  public ResponseEntity<String> delete(@PathVariable Integer idTecnico){
+  public void delete(@PathVariable Integer idTecnico){
     service.delete(idTecnico);
-    return new ResponseEntity<>("Técnico deletado.",HttpStatus.ACCEPTED);
   }
 }

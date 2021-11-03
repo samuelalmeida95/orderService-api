@@ -53,8 +53,8 @@ public class ClienteController {
   @PostMapping
   public ResponseEntity<ClienteDTO> create(
     @Valid 
-    @RequestBody ClienteDTO Cliente) {
-    Cliente novoCliente = service.create(Cliente);
+    @RequestBody ClienteDTO cliente) {
+    Cliente novoCliente = service.create(cliente);
 
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
