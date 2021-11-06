@@ -3,6 +3,8 @@ package com.samuel.crudos.DTOS;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.samuel.crudos.enuns.Prioridade;
+import com.samuel.crudos.enuns.Status;
 import com.samuel.crudos.model.OS;
 
 public class OSDTO {
@@ -58,16 +60,16 @@ public class OSDTO {
     this.dataFechamento = dataFechamento;
   }
 
-  public Integer getPrioridade() {
-    return prioridade;
+  public Prioridade getPrioridade() {
+    return Prioridade.toEnum(this.prioridade);
   }
 
   public void setPrioridade(Integer prioridade) {
     this.prioridade = prioridade;
   }
 
-  public Integer getStatus() {
-    return status;
+  public Status getStatus() {
+    return Status.toEnum(this.status);
   }
 
   public void setStatus(Integer status) {

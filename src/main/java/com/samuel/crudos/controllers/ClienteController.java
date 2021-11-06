@@ -44,7 +44,7 @@ public class ClienteController {
     List<ClienteDTO> listDTO = service
       .findAll()
       .stream()
-      .map(Cliente -> new ClienteDTO(Cliente))
+      .map(ClienteDTO::new)
       .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(listDTO);
@@ -52,7 +52,7 @@ public class ClienteController {
 
   @PostMapping
   public ResponseEntity<ClienteDTO> create(
-    @Valid 
+    @Valid
     @RequestBody ClienteDTO cliente) {
     Cliente novoCliente = service.create(cliente);
 
@@ -77,9 +77,16 @@ public class ClienteController {
     return ResponseEntity.ok().body(ClienteAtualizado);
   }
 
+  //Unexpected token C in JSON at position 0
   @DeleteMapping(value = "/{idCliente}")
   public ResponseEntity<String> delete(@PathVariable Integer idCliente) {
     service.delete(idCliente);
-    return new ResponseEntity<>("Cliente deletado.", HttpStatus.ACCEPTED);
+    return new ResponseEntity<>("{ \"message\":\"Cliente deletado!\" }", HttpStatus.ACCEPTED);
   }
+
+//  @DeleteMapping(value = "/{idCliente}")
+//  public void delete(@PathVariable Integer idCliente) {
+//    service.delete(idCliente);
+//  }
+
 }
