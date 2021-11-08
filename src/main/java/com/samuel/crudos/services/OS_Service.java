@@ -49,9 +49,10 @@ public class OS_Service {
   private OS fromDTO(OSDTO os) {
     OS novaOS = new OS();
     novaOS.setId(os.getId());
+    novaOS.setObservacoes(os.getObservacoes());
     novaOS.setPrioridade(os.getPrioridade());
     novaOS.setStatus(os.getStatus());
-    novaOS.setObservacoes(os.getObservacoes());
+
 
     Tecnico tec = tecnicoService.findById(os.getTecnico());
     Cliente cli = clienteService.findById(os.getCliente());

@@ -1,5 +1,6 @@
 package com.samuel.crudos.DTOS;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,7 +8,9 @@ import com.samuel.crudos.enuns.Prioridade;
 import com.samuel.crudos.enuns.Status;
 import com.samuel.crudos.model.OS;
 
-public class OSDTO {
+public class OSDTO implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private Integer id;
 
